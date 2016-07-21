@@ -216,11 +216,11 @@ typedef enum IRQn {
     I2C1_IRQn             = 19,     /*!< I2C1 interrupt                                            */
     SC0_IRQn              = 21,     /*!< Smart Card 0 interrupt                                    */
     SC1_IRQn              = 22,     /*!< Smart Card 1 interrupt                                    */
-    ACMP_IRQn             = 23,     /*!< Analog Comparator interrupt                               */
     LCD_IRQn              = 25,     /*!< LCD interrupt                                             */
     PDMA_IRQn             = 26,     /*!< PDMA interrupt                                            */
     PDWU_IRQn             = 28,     /*!< Power Down Wake up interrupt                              */
     ADC_IRQn              = 29,     /*!< ADC interrupt                                             */
+    ACMP_IRQn             = 30,     /*!< Analog Comparator interrupt                               */
     RTC_IRQn              = 31      /*!< Real time clock interrupt                                 */
 } IRQn_Type;
 

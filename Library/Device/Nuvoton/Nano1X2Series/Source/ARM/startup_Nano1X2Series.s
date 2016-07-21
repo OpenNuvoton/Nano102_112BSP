@@ -86,14 +86,14 @@ __Vectors       DCD     __initial_sp              ; Top of Stack
                 DCD     Default_Handler           ; Reserved
                 DCD     SC0_IRQHandler            ; SC0 interrupt
                 DCD     SC1_IRQHandler            ; SC1 interrupt
-                DCD     ACMP_IRQHandler           ; ACMP interrupt 
+                DCD     Default_Handler           ; Reserved 
                 DCD     Default_Handler           ; Reserved 
                 DCD     LCD_IRQHandler            ; LCD interrupt 
                 DCD     PDMA_IRQHandler           ; PDMA interrupt
                 DCD     Default_Handler           ; Reserved
                 DCD     PDWU_IRQHandler           ; Power Down Wake up interrupt
                 DCD     ADC_IRQHandler            ; ADC interrupt
-                DCD     Default_Handler           ; Reserved
+                DCD     ACMP_IRQHandler           ; ACMP interrupt
                 DCD     RTC_IRQHandler            ; Real time clock interrupt
                 AREA    |.text|, CODE, READONLY
 
