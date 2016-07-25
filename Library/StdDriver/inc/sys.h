@@ -823,7 +823,7 @@ __STATIC_INLINE void SYS_LockReg(void)
 
 /**
   * @brief      Clear HIRC trim flag
-  * @param[in]  u32RstSrc is HIRC trim flags. Including:
+  * @param[in]  u32IRCTrimFlg is HIRC trim flags. Including:
   *             - \ref SYS_IRCTRIMINT_FAIL_INT
   *             - \ref SYS_IRCTRIMINT_32KERR_INT
   * @return     None

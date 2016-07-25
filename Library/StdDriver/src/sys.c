@@ -106,7 +106,7 @@ void SYS_ResetCPU(void)
   *          - \ref SC0_RST
   *          - \ref ADC_RST
   *          - \ref LCD_RST
-  *          - \ref CMP01_RST
+  *          - \ref ACMP01_RST
   *          - \ref PWM0_RST
   *          - \ref UART1_RST
   *          - \ref UART0_RST
