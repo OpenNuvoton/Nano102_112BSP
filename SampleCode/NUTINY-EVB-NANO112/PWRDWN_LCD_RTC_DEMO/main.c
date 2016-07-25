@@ -3,7 +3,7 @@
  * @version  V1.00
  * $Revision: 16 $
  * $Date: 15/06/23 1:35p $
- * @brief    Demonstrate how to keep LCD display while system enters Power-down 
+ * @brief    Demonstrate how to keep LCD display while system enters Power-down
  *           mode and wake up system periodically with RTC interrupt.
  *
  * @note

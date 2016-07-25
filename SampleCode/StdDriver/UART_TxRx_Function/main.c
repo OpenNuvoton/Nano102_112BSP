@@ -131,7 +131,7 @@ int main(void)
     printf("+---------------------+\n");
 
     UART_FunctionTest();
-	
+
     while(1);
 }
 

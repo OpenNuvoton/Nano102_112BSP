@@ -128,15 +128,15 @@ void Enter_PowerDown()
     PE->PUEN = 0xFFFF;
     PF->PUEN = 0x0033;      /* exclude GPF2 and GPF3 which are HXT OUT/IN */
 
-	SYS_UnlockReg();
+    SYS_UnlockReg();
 
     /* Disable LCD clock */
     CLK->APBCLK &= ~CLK_APBCLK_LCD_EN; /* Disable LCD clock */
     CLK->PWRCTL &= ~CLK_PWRCTL_LXT_EN_Msk; /* disable LXT - 32Khz */
-	CLK->PWRCTL &= ~CLK_PWRCTL_LIRC_EN_Msk;  /* disable LIRC - 10KHz */
+    CLK->PWRCTL &= ~CLK_PWRCTL_LIRC_EN_Msk;  /* disable LIRC - 10KHz */
 
     CLK_PowerDown();
-	//SYS_LockReg();
+    //SYS_LockReg();
 
 }
 
@@ -154,10 +154,10 @@ void Leave_PowerDown()
 
     /* Enable LCD clock */
     CLK->PWRCTL |= CLK_PWRCTL_LXT_EN_Msk; /* enable LXT - 32Khz */
-	CLK->PWRCTL |= CLK_PWRCTL_LIRC_EN_Msk; /* enable LIRC - 10Khz */
+    CLK->PWRCTL |= CLK_PWRCTL_LIRC_EN_Msk; /* enable LIRC - 10Khz */
     CLK->APBCLK |= CLK_APBCLK_LCD_EN; /* enable LCD clock */
 
-	SYS_LockReg();
+    SYS_LockReg();
 }
 
 

@@ -193,11 +193,11 @@ void FMC_SetVectorPageAddr(uint32_t u32PageAddr)
 
 
 /**
-  * @brief    Obtain the current vector page address setting. 
+  * @brief    Obtain the current vector page address setting.
   * @return   The vector page address.
   */
 uint32_t FMC_GetVectorPageAddr(void)
-{ 
+{
     return (FMC->ISPSTA & 0x0FFFFF00ul);
 }
 
