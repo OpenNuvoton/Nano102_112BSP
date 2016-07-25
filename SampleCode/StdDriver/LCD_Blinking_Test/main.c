@@ -3,7 +3,7 @@
  * @version  V1.00
  * $Revision: 10 $
  * $Date: 15/06/23 1:20p $
- * @brief    Demonstrate LCD blinking function on LCD panel of 
+ * @brief    Demonstrate LCD blinking function on LCD panel of
  *           NuTiny-SDK-Nano112-LQFP_TNLCD board.
  *
  * @note

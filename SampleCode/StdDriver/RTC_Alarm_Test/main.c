@@ -114,7 +114,7 @@ int32_t main(void)
     sInitTime.u32DayOfWeek  = RTC_TUESDAY;
     sInitTime.u32TimeScale  = RTC_CLOCK_24;
 
-    RTC_Open(&sInitTime); //user maybe need Waiting for RTC settings stable 
+    RTC_Open(&sInitTime); //user maybe need Waiting for RTC settings stable
 
     printf("\n RTC Alarm Test (Alarm after 10 seconds)\n\n");
 

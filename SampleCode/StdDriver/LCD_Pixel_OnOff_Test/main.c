@@ -3,7 +3,7 @@
  * @version  V1.00
  * $Revision: 9 $
  * $Date: 15/06/23 1:21p $
- * @brief    Show how to control pixel on and off on LCD panel of 
+ * @brief    Show how to control pixel on and off on LCD panel of
  *           NuTiny-SDK-Nano112-LQFP_TNLCD board
  *
  * @note

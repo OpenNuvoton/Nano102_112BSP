@@ -101,7 +101,7 @@ static void PWM0_Init(void)
 
     // Set PWM0 channel 0 to center-aligned mode
     PWM_SET_ALIGNED_TYPE(PWM0, 1, PWM_CENTER_ALIGNED);
-  
+
     // Enable PWM0 channel 0 to trigger ADC
     PWM_EnableADCTrigger (PWM0, PWM_CH0, 0);
 

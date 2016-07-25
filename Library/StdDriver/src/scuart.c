@@ -64,7 +64,7 @@ static uint32_t SCUART_GetClock(SC_T *sc)
         u32Clk /= ((CLK->CLKDIV0 & CLK_CLKDIV0_SC0_N_Msk) >> CLK_CLKDIV0_SC0_N_Pos) + 1;
     else
         u32Clk /= (CLK->CLKDIV1 & CLK_CLKDIV1_SC1_N_Msk) + 1;
-    
+
     return u32Clk;
 }
 

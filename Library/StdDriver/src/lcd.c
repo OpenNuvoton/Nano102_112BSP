@@ -278,7 +278,7 @@ uint32_t LCD_Open(uint32_t u32DrivingType, uint32_t u32ComNum, uint32_t u32BiasL
 
     if(u32DrivingType == LCD_EXTERNAL_C_TYPE)
         LCD->DISPCTL |= LCD_DISPCTL_Ext_C_Msk;
-	
+
     LCD->CTL &= ~LCD_CTL_FREQ_Msk;
     LCD->CTL |= u32FramerateDiv;
 
