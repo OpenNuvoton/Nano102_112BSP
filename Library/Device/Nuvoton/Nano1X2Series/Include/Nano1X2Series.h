@@ -8,7 +8,7 @@
  *           bits definitions and memory mapping for NuMicro Nano102/112 MCU.
  *
  * @note
- * Copyright (C) 2013-2014 Nuvoton Technology Corp. All rights reserved.
+ * Copyright (C) 2016 Nuvoton Technology Corp. All rights reserved.
  *****************************************************************************/
 /**
    \mainpage NuMicro Nano102/112 Driver Reference Guide
@@ -47,117 +47,8 @@
    *
    * <b>Copyright Notice</b>
    *
-   * Copyright (C) 2013-2015 Nuvoton Technology Corp. All rights reserved.
+   * Copyright (C) 2013-2016 Nuvoton Technology Corp. All rights reserved.
    */
-/**
-  * \page pg1 NuMicro Nano102/112 BSP Directory Structure
-  * Please refer to Readme.pdf under BSP root directory for the BSP directory structure
-  *
-  * \page pg2 Revision History
-  *
-  * <b>Revision 3.02.000</b>
-  * \li Removed CLK_APBCLK_TK_EN macro in clk.h.
-  * \li Removed ACMP_ENABLE_OUTPUT_INVERSE and ACMP_DISABLE_OUTPUT_INVERSE macros in acmp.h.
-  * \li Removed FMC_EnableAPUpdate(),FMC_DisableAPUpdate(),FMC_EnableLDUpdate(), FMC_DisableAPUpdate(),FMC_EnableConfigUpdate(), and FMC_DisableConfigUpdate() in fmc.h and fmc.c.
-  * \li Removed all IAR projects [Debug] configuration.
-  * \li Modified all IAR projects reset entry as Reset_Handler.
-  * \li Modified all Keil projects device type as NANO112VC2AN.
-  * \li Renamed SYS_IRCTRIMINT_32KERR_ENNT as SYS_IRCTRIMINT_32KERR_INT in sys.h.
-  * \li Renamed CHER as CHEN in adc.h.
-  * \li Renamed SYS_IPRSTCTL2_LCD as SYS_IPRST_CTL2_LCD_RST_Msk in lcd.h.
-  * \li Renamed StdDriver sample GPIO to GPIO_IOTest.
-  * \li Renamed StdDriver sample CRC to CRC_CCITT.
-  * \li Renamed StdDriver sample PDMA to PDMA_Memory.
-  * \li Renamed StdDriver sample SYS to SYS_Control.
-  * \li Fixed SYS_PA_L_MFP_PA0_MFP_GPA0 and SYS_PA_L_MFP_PA0_MFP_GPA0 implementation errors in sys.h.
-  * \li Fixed DMA_CRC_CTL_CRC_RST_Msk implementation error in crc.h.
-  * \li Fixed PDMA_IS_CH_BUSY implementation error in pdma.h.
-  * \li Fixed ADC_SET_INPUT_CHANNEL() implementation error in adc.h.
-  * \li Fixed SC_SET_STOP_BIT_LEN implementation error in sc.h.
-  * \li Fixed UART_IS_TX_EMPTY implementation error in uart.h.
-  * \li Fixed LCD_CPUMP_DIV128 implementation error in lcd.h.
-  * \li Fixed PWM_ENABLE_OUTPUT_INVERTER() error in pwm.h.
-  * \li Fixed ADC_IS_DATA_OVERRUN() and ADC_IS_DATA_VALID() errors in adc.h.
-  * \li Fixed I2C register CON2 and STATUS2 offset bug in Nano1X2Series.h.
-  * \li Fixed the bug that timer_delay() set prescale to wrong register in timer.c.
-  * \li Fixed ACMP_SetSigmaDeltaConv() parameter u32PosPin implementation bug in acmp.c.
-  * \li Fixed RTC_CLEAR_TAMPER_FLAG() implementation bug rtc.h.
-  * \li Fixed Frame counter calculate error of LCD_EnableFrameCounter() in lcd.c.
-  * \li Fixed SYS_IsRegLocked() return value bug in sys.c.
-  * \li Fixed SCUART_Open() and SCUART_SetLineConfig() baudrate calculation prescale setting error in scuart.c.
-  * \li Modified UART_SelectIrDAMode() to reload UART clock before calculating baudrate in uart.c.
-  * \li Modified SYS_LockReg() and SYS_UnlockReg() as inline function in sys.h.
-  * \li Modified RTC_WRITE_KEY program flow to avoid be overwritten by ISR, in rtc.c.
-  * \li Modified GP_DBNCECON_PUEN_* as GP_DBNCECON_DBCLKSEL_*  in Nano1X2Series.h.
-  * \li Modified Timer_Open() to not start timer in it, in timer.c.
-  * \li Disabled Rx before raising RST high during cold reset in SmartCardLib library.
-  * \li Check RST and DAT pin status during deactivation in SmartCardLib library.
-  * \li Added I2C_ClearIntFlag() function in i2c.c.
-  * \li Added PLL_IN_12M_OUT_32M_HXT and PLL_IN_12M_OUT_32M_HIRC in clk.h.
-  * \li Added ACMP_SELECT_P in acmp.h.
-  * \li Added SYS_GET_IRCTRIM_INT_FLAG() and SYS_CLEAR_IRCTRIM_INT_FLAG() in sys.h.
-  * \li Added UART_FUNC_SEL_LIN macro in uart.h.
-  * \li Added CLK_EnableSysTick() and CLK_DisableSysTick() in clk.c.
-  * \li Added SYS_EnableIRCTrim() and SYS_DisableIRCTrim() in sys.c.
-  * \li Added UART_SelectLINMode() in uart.c.
-  * \li Added rules to qualify input parameters of SetAutoSS() and SetBusClock() in spi.c.
-  * \li Added Nano112 learning board samples in Nu-LB-NANO112 folder.
-  * \li Added sample SYS_TrimIRC to StdDriver.
-  * \li Added sample Timer_Wakeup to StdDriver.
-  * \li Added sample UART_PDMA to StdDriver.
-  *
-  * <b>Revision 3.01.000</b>
-  * \li Fixed GPIO_DISABLE_DIGITAL_PATH(), GPIO_ENABLE_DIGITAL_PATH(),GPIO_DISABLE_DOUT_MASK(),GPIO_ENABLE_DOUT_MASK(), GPIO_DISABLE_PULL_UP(), and GPIO_ENABLE_PULL_UP() implementation error.
-  * \li Fixed SYS_PC_L_MFP_PC0_MFP_LCD_S11, SYS_PC_L_MFP_PC0_MFP_LCD_S18, SYS_PC_L_MFP_PC0_MFP_LCD_S22, SYS_PC_H_MFP_PC10_MFP_I2C1_SCL, SYS_PC_H_MFP_PC11_MFP_I2C1_SDA,
-  *           SYS_PD_H_MFP_PD13_MFP_EINT1, SYS_PD_H_MFP_PD10_MFP_LCD_COM0, SYS_PD_H_MFP_PD10_MFP_LCD_COM0, SYS_PD_H_MFP_PD9_MFP_LCD_COM1, SYS_PD_H_MFP_PD8_MFP_LCD_COM2,
-  *           SYS_PF_L_MFP_PF5_MFP_ICE_DAT, and SYS_PF_L_MFP_PF4_MFP_ICE_CLK definition error.
-  * \li Fixed SYS_DISABLE_BOD*(), and SYS_ENABLE_BOD*() implementation error.
-  * \li Fixed PDMA_WIDTH_* definition error
-  * \li Fixed PWM_ConfigOutputChannel() and PWM_ConfigCaptureChannel() PWM channel 2 and 3 clock setting error.
-  * \li Fixed SPI_SET_SSx_LOW(), SPI_SET_SSx_HIGH(), SPI_CLR_3WIRE_START_INT_FLAG(), and SPI_CLR_UNIT_TRANS_INT_FLAG()implementation error.
-  * \li Fixed SPI_Open(), SPI_SetBusClock() and SPI_GetBusClock() clock frequency calculation.
-  * \li Fixed I2C_Open(), I2C_GetBusClockFreq(), and I2C_SetBusClockFreq() clock frequency calculation error.
-  * \li Replaced the *_MFP_TIMERx_EXT setting with *_MFP_TIMERx_CNT and *_TIMERx_OUT.
-  * \li Renamed *_MFP_CKOHZ to *_MFP_CLK_Hz.
-  * \li Renamed SYS_PA_L_MFP_PA5_MFP_SC2_RST to SYS_PA_L_MFP_PA5_MFP_SC0_PWR.
-  * \li Renamed SYS_PA_H_MFP_PA10_MFP_SC0_DAT to SYS_PA_H_MFP_PA10_MFP_SC0_CLK.
-  * \li Renamed SYS_PA_H_MFP_PA12_MFP_I2C1_SCL to SYS_PA_H_MFP_PA12_MFP_I2C0_SCL.
-  * \li Renamed SYS_PA_H_MFP_PA13_MFP_I2C0_DAT to SYS_PA_H_MFP_PA13_MFP_I2C0_SDA.
-  * \li Renamed SYS_PA_H_MFP_PA15_MFP_I2C_DAT to SYS_PA_H_MFP_PA15_MFP_I2C1_SDA.
-  * \li Renamed SYS_PB_L_MFP_PB3_MFP_I2C_DAT to SYS_PB_L_MFP_PB3_MFP_I2C0_SDA.
-  * \li Renamed SYS_PB_L_MFP_PB5_MFP_SPI2_MOSI1 to SYS_PB_L_MFP_PB5_MFP_SPI1_MOSI1
-  * \li Renamed SYS_PB_L_MFP_PB7_MFP_CD to SYS_PB_L_MFP_PB7_MFP_SC0_CD.
-  * \li Renamed SYS_PB_H_MFP_PB10_MFP_SPI1_MOSI1 to SYS_PB_H_MFP_PB10_MFP_SPI0_MOSI1.
-  * \li Renamed SYS_PD_L_MFP_PD7_MFP_LCD_S3 to SYS_PD_L_MFP_PD7_MFP_LCD_COM3.
-  * \li Renamed SYS_PD_H_MFP_PD11_MFP_LCD_DH1 to SYS_PD_H_MFP_PD11_MFP_LCD_DH2.
-  * \li Renamed SYS_PD_H_MFP_PD12_MFP_LCD_DH2 to SYS_PD_H_MFP_PD12_MFP_LCD_DH1.
-  * \li Renamed SYS_PF_L_MFP_PF2_MFP_HXT_OUT to SYS_PF_L_MFP_PF2_MFP_XT1_IN.
-  * \li Renamed SYS_PF_L_MFP_PF3_MFP_HXT_IN to SYS_PF_L_MFP_PF3_MFP_XT1_OUT.
-  * \li Renamed SYS_PF_L_MFP_PF1_MFP_ICE_CLK to SYS_PF_L_MFP_PF4_MFP_ICE_CLK.
-  * \li Renamed SYS_PF_L_MFP_PF0_MFP_ICE_DAT to SYS_PF_L_MFP_PF5_MFP_ICE_DAT.
-  * \li Updated CLK_EnableCKO() to set clock source before output enable.
-  * \li Updated I2C_WAIT_READY() to clear I2C_INTSTS_INTSTS_Msk before exiting macro.
-  * \li Updated FMC_Erase() to avoid modifying FMC->ISPCON register setting.
-  * \li Added SYS_PD_H_MFP_PD11_MFP_PWM0_CH1 definition.
-  * \li Added ADC_PDMA, ADC_TimerTrigger, GPIO_PowerDown, Hard_Fault_Sample, PWM_CapturePDMA, SPI_TxRxLoopback_PDMA, SYS_PLLClockOutput, UART_FlowCtrl, and UART_Rx_Wakeup samples.
-  *
-  * <b>Revision 3.00.001</b>
-  * \li Improved PWM capture function performance.
-  * \li Added ADC_SET_REF_VOLTAGE macro to configure ADC reference voltage.
-  * \li Minor bug fix.
-  *
-  * <b>Revision 3.00.000</b>
-  * \li Changed major version number from 1 to 3.
-  * \li Renamed I2C_SetClockBusFreq() to I2C_SetBusClockFreq().
-  * \li Renamed I2C_SetSlaveMask() to I2C_SetSlaveAddrMask().
-  * \li Renamed RTC_GetDatAndTime() to RTC_GetDateAndTime().
-  * \li Added Learning Board sample.
-  * \li Moved Smartcard libraries one directory level up to "Library\SmartcardLib\".
-  * \li Minor bug fix.
-  *
-  * <b>Revision 1.00.000</b>
-  * \li Initial release.
-*/
 #ifndef __NANO1X2SERIES_H__
 #define __NANO1X2SERIES_H__
 
@@ -10985,5 +10876,5 @@ typedef volatile unsigned long  vu32;       ///< Define 32-bit unsigned volatile
 
 #endif  // __NANO1X2SERIES_H__
 
-/*** (C) COPYRIGHT 2013-2014 Nuvoton Technology Corp. ***/
+/*** (C) COPYRIGHT 2013-2016 Nuvoton Technology Corp. ***/
 
