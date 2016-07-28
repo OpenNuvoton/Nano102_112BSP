@@ -1,13 +1,13 @@
- /**************************************************************************//**
- * @file     LCD.h
- * @version  V1.00
- * $Revision: 8 $
- * $Date: 15/06/17 2:03p $
- * @brief    Nano102/112 series LCD driver header file
- *
- * @note
- * Copyright (C) 2013~2014 Nuvoton Technology Corp. All rights reserved.
- *****************************************************************************/
+/**************************************************************************//**
+* @file     LCD.h
+* @version  V1.00
+* $Revision: 8 $
+* $Date: 15/06/17 2:03p $
+* @brief    Nano102/112 series LCD driver header file
+*
+* @note
+* Copyright (C) 2013~2014 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
 #ifndef __LCD_H__
 #define __LCD_H__
 

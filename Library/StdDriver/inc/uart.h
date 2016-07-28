@@ -242,7 +242,7 @@ extern "C"
  *    @brief    Set Rx FIFO interrupt Trigger Level
  *
  *    @param    uart        The base address of UART module
- *    @param    u32TriggerLevel   RX FIFO interrupt Trigger Level. ( \ref UART_TLCTL_RFITL_1BYTE / \ref UART_TLCTL_RFITL_4BYTES / 
+ *    @param    u32TriggerLevel   RX FIFO interrupt Trigger Level. ( \ref UART_TLCTL_RFITL_1BYTE / \ref UART_TLCTL_RFITL_4BYTES /
  *                                                                   \ref UART_TLCTL_RFITL_8BYTES / \ref UART_TLCTL_RFITL_14BYTES )
  *    @return    None
  */

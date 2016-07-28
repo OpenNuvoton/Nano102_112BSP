@@ -98,7 +98,7 @@ extern "C"
 #define CLK_PLLCTL_PLL_SRC_HIRC   ((uint32_t)(0x00020000))    /*!< For PLL clock source is HIRC */
 
 #define CLK_PLL_SRC_N(x)          (((x)-1)<<8)                   /*!< PLL Input Source Divider */
-#define CLK_PLL_MLP(x)            ((x)<<0)                       /*!< PLL Multiple */ 
+#define CLK_PLL_MLP(x)            ((x)<<0)                       /*!< PLL Multiple */
 #if (__HXT == 12000000)
 #define CLK_PLLCTL_32MHz_HXT   (CLK_PLLCTL_PLL_SRC_HXT  | CLK_PLL_SRC_N(12) | CLK_PLL_MLP(32)) /*!< Predefined PLLCTL setting for 32MHz PLL output with 12MHz X'tal */
 #define CLK_PLLCTL_28MHz_HXT   (CLK_PLLCTL_PLL_SRC_HXT  | CLK_PLL_SRC_N(12) | CLK_PLL_MLP(28)) /*!< Predefined PLLCTL setting for 28MHz PLL output with 12MHz X'tal */
@@ -218,8 +218,8 @@ extern "C"
 #define CLK_TMR0_CLK_DIVIDER(x)     (((x-1)<< CLK_CLKDIV1_TMR0_N_Pos) & CLK_CLKDIV1_TMR0_N_Msk)  /*!< CLKDIV1 Setting for Timer0 clock divider. It could be 1~16 */
 
 /********************* Bit definition of SysTick register **********************/
-#define CLK_CLKSEL0_STCLKSEL_HCLK         (1)     /*!< Setting systick clock source as external HCLK */ 
-#define CLK_CLKSEL0_STCLKSEL_HCLK_DIV8    (2)     /*!< Setting systick clock source as external HCLK/8 */ 
+#define CLK_CLKSEL0_STCLKSEL_HCLK         (1)     /*!< Setting systick clock source as external HCLK */
+#define CLK_CLKSEL0_STCLKSEL_HCLK_DIV8    (2)     /*!< Setting systick clock source as external HCLK/8 */
 
 /********************* Bit definition of FRQDIV register **********************/
 #define CLK_FRQDIV_EN         ((uint32_t)0x00000010)    /*!<Frequency divider enable bit */
