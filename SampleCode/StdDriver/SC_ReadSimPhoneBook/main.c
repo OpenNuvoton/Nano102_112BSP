@@ -9,7 +9,7 @@
  * Copyright (C) 2017 Nuvoton Technology Corp. All rights reserved.
 *****************************************************************************/
 #include <stdio.h>
-#include "Nano1x2Series.h"
+#include "Nano1X2Series.h"
 #include "sclib.h"
 
 /* The definition of commands used in this sample code and directory structures could

@@ -9,7 +9,7 @@
  * Copyright (C) 2014 Nuvoton Technology Corp. All rights reserved.
  ******************************************************************************/
 #include <stdio.h>
-#include "nano1x2series.h"
+#include "Nano1X2Series.h"
 
 
 /*---------------------------------------------------------------------------------------------------------*/

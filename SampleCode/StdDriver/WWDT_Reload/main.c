@@ -9,7 +9,7 @@
  * Copyright (C) 2013-2014 Nuvoton Technology Corp. All rights reserved.
  *****************************************************************************/
 #include <stdio.h>
-#include "Nano1x2Series.h"
+#include "Nano1X2Series.h"
 
 // WWDT shares the same IRQ number with WDT, hence use the same IRQ handler name
 void WDT_IRQHandler(void)

@@ -11,7 +11,7 @@
  * Copyright (C) 2013-2014 Nuvoton Technology Corp. All rights reserved.
 *****************************************************************************/
 #include <stdio.h>
-#include "Nano1x2Series.h"
+#include "Nano1X2Series.h"
 
 
 void TMR0_IRQHandler(void)
