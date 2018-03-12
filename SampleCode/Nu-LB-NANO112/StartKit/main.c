@@ -138,9 +138,12 @@ int32_t main(void)
     CLK_SysTickDelay(335000);
     CLK_SysTickDelay(335000);
 
-    while(1) {
-        for(i=0; i<10; i++) {
-            for(j=0; j<10; j++) {
+    while(1)
+    {
+        for(i=0; i<10; i++)
+        {
+            for(j=0; j<10; j++)
+            {
                 start_str[0] = ' ';
                 start_str[1] = int_to_char(i);
                 start_str[2] = ' ';

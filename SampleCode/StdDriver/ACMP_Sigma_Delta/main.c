@@ -118,7 +118,8 @@ int32_t main (void)
     ACMP_Open(ACMP,0,ACMP_CR_CN_PIN,ACMP_CR_ACMP_HYSTERSIS_DISABLE);
     ACMP_SetSigmaDeltaConv(ACMP_TIMER01,ACMP_MODCR0_TMR_TRI_LV_RISING,ACMP_CR_CPP0SEL_PA4,ACMP_MODCR0_CH_DIS_PINSEL_PA14);
 
-    while(1) {
+    while(1)
+    {
 
         ACMP_ENABLE(ACMP,0);
         ACMP_START_CONV(ACMP);    //Start to Charge or Discharge

@@ -119,8 +119,10 @@ int32_t main (void)
     ACMP_Open(ACMP,0,ACMP_CR_CN_CRV|1,ACMP_CR_ACMP_HYSTERSIS_DISABLE);
     ACMP_SetSlopeConv(ACMP_TIMER01,ACMP_MODCR0_TMR_TRI_LV_FALLING,ACMP_CR_CPP0SEL_PA4,ACMP_MODCR0_CH_DIS_PINSEL_PA14);
 
-    while(1) {
-        for(j=0; j<CHARGE_NUM; j++) {
+    while(1)
+    {
+        for(j=0; j<CHARGE_NUM; j++)
+        {
             ACMP_SetSlopeConv(ACMP_TIMER01,ACMP_MODCR0_TMR_TRI_LV_FALLING,ACMP_CR_CPP0SEL_PA4,charge[j]);
             ACMP_ENABLE(ACMP,0);
             for(i=0; i<0x50000; i++);

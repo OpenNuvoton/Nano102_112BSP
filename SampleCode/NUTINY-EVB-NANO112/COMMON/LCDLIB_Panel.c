@@ -20,7 +20,8 @@
 #define Zone2_Digit_SegNum  20
 
 
-const ZoneInfo_TypeDef LCD_ZoneInfo[]= {
+const ZoneInfo_TypeDef LCD_ZoneInfo[]=
+{
     {sub_Zone0, Zone0_Digit_SegNum},
     {sub_Zone1, Zone1_Digit_SegNum},
     {sub_Zone2, Zone2_Digit_SegNum},
@@ -64,7 +65,8 @@ const ZoneInfo_TypeDef LCD_ZoneInfo[]= {
 
 
 
-const char Zone0[sub_Zone0][Zone0_Digit_SegNum][2] = {
+const char Zone0[sub_Zone0][Zone0_Digit_SegNum][2] =
+{
     {
         // 1
         //{com, seg}
@@ -153,7 +155,8 @@ const char Zone0[sub_Zone0][Zone0_Digit_SegNum][2] = {
 };
 
 
-const char Zone1[sub_Zone1][Zone1_Digit_SegNum][2] = {
+const char Zone1[sub_Zone1][Zone1_Digit_SegNum][2] =
+{
     {
         // 1
         //{com, seg}
@@ -182,7 +185,8 @@ const char Zone1[sub_Zone1][Zone1_Digit_SegNum][2] = {
 };
 
 //Symbol Zone
-const char Zone2[sub_Zone2][Zone2_Digit_SegNum][2] = {
+const char Zone2[sub_Zone2][Zone2_Digit_SegNum][2] =
+{
     {
         {0, 35}, // LOGO          /* 0 */
         {0, 2},  // 1DP           /* 1 */
@@ -207,7 +211,8 @@ const char Zone2[sub_Zone2][Zone2_Digit_SegNum][2] = {
     }
 };
 
-char *Zone[] = {
+char *Zone[] =
+{
     {(char*)(Zone0)},
     {(char*)(Zone1)},
     {(char*)(Zone2)},
@@ -220,7 +225,8 @@ char *Zone[] = {
  * Bit pattern below defined for alphabet (text segments)
  *
  *****************************************************************************/
-const uint16_t Zone0_TextDisplay[] = {
+const uint16_t Zone0_TextDisplay[] =
+{
     0x0000, /* space */
     0x1100, /* ! */
     0x0280, /* " */
@@ -324,7 +330,8 @@ const uint16_t Zone0_TextDisplay[] = {
 /**************************************************************************//**
  * Defines segments for the numeric display
  *****************************************************************************/
-const uint16_t Zone1_TextDisplay[] = {
+const uint16_t Zone1_TextDisplay[] =
+{
     0x0000, /* space */
     0x0000, /* ! */
     0x0000, /* " */
@@ -355,7 +362,8 @@ const uint16_t Zone1_TextDisplay[] = {
     0xc0, /* - */
 };
 
-const uint16_t *Zone_TextDisplay[] = {
+const uint16_t *Zone_TextDisplay[] =
+{
     {(uint16_t*)(Zone0_TextDisplay)},
     {(uint16_t*)(Zone1_TextDisplay)},
 };
