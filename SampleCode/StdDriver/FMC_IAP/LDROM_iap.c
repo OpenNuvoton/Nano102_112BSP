@@ -14,6 +14,32 @@
 
 typedef void (FUNC_PTR)(void);
 
+/**
+ * @brief    Routine to get a char
+ * @param    None
+ * @returns  Get value from UART debug port or semihost
+ * @details  Wait UART debug port or semihost to input a char.
+ */
+static char GetChar(void)
+{
+    while(1)
+    {
+        if ((UART0->FSR & UART_FSR_RX_EMPTY_F_Msk) == 0)
+        {
+            return (UART0->RBR);
+        }
+    }
+}
+
+extern void SendChar_ToUART(int ch);
+
+static void PutString(char *str)
+{
+    while (*str != '\0')
+    {
+        SendChar_ToUART(*str++);
+    }
+}
 
 void SYS_Init(void)
 {
@@ -65,6 +91,7 @@ __asm __set_SP(uint32_t _sp)
 
 int main()
 {
+    uint32_t    sp;
     FUNC_PTR    *func;
 
     /* Init System, IP clock and multi-function I/O */
@@ -77,31 +104,44 @@ int main()
     /* SAMPLE CODE                                                                                             */
     /*---------------------------------------------------------------------------------------------------------*/
 
-    printf("\n\n");
-    printf("+----------------------------------------+\n");
-    printf("|     Nano1x2 FMC IAP Sample Code        |\n");
-    printf("|           [LDROM code]                 |\n");
-    printf("+----------------------------------------+\n");
+    PutString("\n\n");
+    PutString("+----------------------------------------+\n");
+    PutString("|     Nano1x2 FMC IAP Sample Code        |\n");
+    PutString("|           [LDROM code]                 |\n");
+    PutString("+----------------------------------------+\n");
 
     SYS_UnlockReg();
 
     /* Enable FMC ISP function */
     FMC_Open();
 
-    printf("\n\nPress any key to branch to APROM...\n");
-    getchar();
+    PutString("\n\nPress any key to branch to APROM...\n");
+    GetChar();
 
-    printf("\n\nChange VECMAP and branch to LDROM...\n");
+    PutString("\n\nChange VECMAP and branch to APROM...\n");
     while (!(UART0->FSR & UART_FSR_TX_EMPTY_F_Msk));
+
+    sp = FMC_Read(FMC_APROM_BASE);
+    func =  (FUNC_PTR *)FMC_Read(FMC_APROM_BASE+4);
 
     /*  NOTE!
      *     Before change VECMAP, user MUST disable all interrupts.
      */
-    FMC_SetVectorPageAddr(FMC_APROM_BASE);
+
+    /* FMC_SetVectorPageAddr(FMC_APROM_BASE); */
+    FMC->ISPCMD = FMC_ISPCMD_VECMAP;
+    FMC->ISPADR = FMC_APROM_BASE;
+    FMC->ISPTRG = FMC_ISPTRG_ISPGO_Msk;
+    while (FMC->ISPTRG & FMC_ISPTRG_ISPGO_Msk) ;
+
     SYS_LockReg();
 
-    func = (FUNC_PTR *)*(uint32_t *)(FMC_APROM_BASE + 4);
-    __set_SP(*(uint32_t *)FMC_APROM_BASE);
+#if defined (__GNUC__) && !defined(__ARMCC_VERSION) /* for GNU C compiler */
+    asm("msr msp, %0" : : "r" (sp));
+#else
+    __set_SP(sp);
+#endif
+
     func();
 
     while (1);

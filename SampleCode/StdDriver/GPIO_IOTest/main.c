@@ -22,6 +22,7 @@
  */
 void GPABC_IRQHandler(void)
 {
+	uint32_t reg;
     /* To check if PB.5 interrupt occurred */
     if (PB->ISRC & BIT5)
     {
@@ -33,9 +34,12 @@ void GPABC_IRQHandler(void)
     else
     {
         /* Un-expected interrupt. Just clear all PORTA, PORTB, PORTC interrupts */
-        PA->ISRC = PA->ISRC;
-        PB->ISRC = PB->ISRC;
-        PC->ISRC = PC->ISRC;
+        reg = PA->ISRC;
+        PA->ISRC = reg;
+        reg = PB->ISRC;
+        PB->ISRC = reg;
+        reg = PC->ISRC;
+        PC->ISRC = reg;
         printf("Un-expected interrupts. \n");
     }
 }
@@ -52,6 +56,7 @@ void GPABC_IRQHandler(void)
  */
 void GPDEF_IRQHandler(void)
 {
+	uint32_t reg;
     /* To check if PE.2 interrupt occurred */
     if (PE->ISRC & BIT2)
     {
@@ -62,9 +67,12 @@ void GPDEF_IRQHandler(void)
     else
     {
         /* Un-expected interrupt. Just clear all PORTD, PORTE and PORTF interrupts */
-        PD->ISRC = PD->ISRC;
-        PE->ISRC = PE->ISRC;
-        PF->ISRC = PF->ISRC;
+        reg = PD->ISRC;
+        PD->ISRC = reg;
+        reg = PE->ISRC;
+        PE->ISRC = reg;
+        reg = PF->ISRC;
+        PF->ISRC = reg;
         printf("Un-expected interrupts. \n");
     }
 }

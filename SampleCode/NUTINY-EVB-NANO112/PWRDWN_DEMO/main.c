@@ -28,7 +28,6 @@
 /* External functions */
 void textticker(char *string, uint32_t delayus);
 void showTime(uint32_t hour, uint32_t minute);
-void planNextRTCInterrupt(S_RTC_TIME_DATA_T *sCurTime);
 
 /* Global variables */
 __IO int32_t   _Wakeup_Flag = 0;    /* 1 indicates system wake up from power down mode */

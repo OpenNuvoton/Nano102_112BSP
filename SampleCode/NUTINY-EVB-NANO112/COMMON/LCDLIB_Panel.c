@@ -213,9 +213,9 @@ const char Zone2[sub_Zone2][Zone2_Digit_SegNum][2] =
 
 char *Zone[] =
 {
-    {(char*)(Zone0)},
-    {(char*)(Zone1)},
-    {(char*)(Zone2)},
+    (char*)(Zone0),
+    (char*)(Zone1),
+    (char*)(Zone2),
 };
 
 
@@ -234,7 +234,7 @@ const uint16_t Zone0_TextDisplay[] =
     0x0000, /* $ */
     0x0000, /* % */
     0x0000, /* & */
-    0x0000, /* £  */
+    0x0000, /* ? */
     0x0039, /* ( */
     0x000f, /* ) */
     0x3fc0, /* * */
@@ -339,7 +339,7 @@ const uint16_t Zone1_TextDisplay[] =
     0x0000, /* $ */
     0x0000, /* % */
     0x0000, /* & */
-    0x0000, /* £  */
+    0x0000, /* ? */
     0x0000, /* ( */
     0x0000, /* ) */
     0x0000, /* * */
@@ -364,8 +364,8 @@ const uint16_t Zone1_TextDisplay[] =
 
 const uint16_t *Zone_TextDisplay[] =
 {
-    {(uint16_t*)(Zone0_TextDisplay)},
-    {(uint16_t*)(Zone1_TextDisplay)},
+    (uint16_t*)(Zone0_TextDisplay),
+    (uint16_t*)(Zone1_TextDisplay),
 };
 
 

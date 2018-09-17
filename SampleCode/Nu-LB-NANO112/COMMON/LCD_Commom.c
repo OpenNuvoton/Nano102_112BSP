@@ -71,7 +71,7 @@ long long local_atoi(char text[])
     return result;
 }
 
-void ControlSegment(bool onoff, int com, int seg)
+void ControlSegment(uint32_t onoff, int com, int seg)
 {
     LCD_SetPixel(com, seg, onoff);
 }

@@ -226,7 +226,12 @@ int main()
             while (FMC->ISPTRG & FMC_ISPTRG_ISPGO_Msk) ;
 
             func = (FUNC_PTR *)*(uint32_t *)(FMC_LDROM_BASE + 4);
+
+#if defined (__GNUC__) && !defined(__ARMCC_VERSION) /* for GNU C compiler */
+            asm("msr msp, %0" : : "r" (*(uint32_t *)FMC_LDROM_BASE));
+#else
             __set_SP(*(uint32_t *)FMC_LDROM_BASE);
+#endif
             func();
             break;
 

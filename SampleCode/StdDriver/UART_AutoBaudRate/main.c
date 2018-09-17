@@ -48,9 +48,7 @@ uint8_t testPattern[] = {0x00,0x55,0xAA,0xFF,0x00,0x55,0xFF,0xAA};
 /*---------------------------------------------------------------------------------------------------------*/
 /* Define functions prototype                                                                              */
 /*---------------------------------------------------------------------------------------------------------*/
-void UART_INT_HANDLE(uint32_t u32IntStatus);
 int32_t DataCompare(uint8_t InBuffer[],uint8_t OutBuffer[],int32_t len);
-extern char GetChar(void);
 
 uint32_t GetUartClk(void)
 {
