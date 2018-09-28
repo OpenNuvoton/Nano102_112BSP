@@ -57,17 +57,17 @@
 		<link>
 			<name>User/LCDLIB_Panel.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Common/LCDLIB_Panel.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/COMMON/LCDLIB_Panel.c</locationURI>
 		</link>
 		<link>
 			<name>User/LCD_Commom.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Common/LCD_Commom.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/COMMON/LCD_Commom.c</locationURI>
 		</link>
 		<link>
 			<name>User/RTC_Common.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Common/RTC_Common.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/COMMON/RTC_Common.c</locationURI>
 		</link>
 		<link>
 			<name>User/main.c</name>
