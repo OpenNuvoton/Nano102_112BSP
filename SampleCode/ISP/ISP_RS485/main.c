@@ -11,7 +11,7 @@
 #include "targetdev.h"
 
 #define nRTSPin                 (PB2)
-#define REVEIVE_MODE            (0)
+#define RECEIVE_MODE            (0)
 #define TRANSMIT_MODE           (1)
 
 /*---------------------------------------------------------------------------------------------------------*/
@@ -40,9 +40,9 @@ void SYS_Init(void)
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init I/O Multi-function                                                                                 */
     /*---------------------------------------------------------------------------------------------------------*/
-    /* Set PA13 for RTS  */
-    PB->PMD = (PA->PMD & ~(0x3ul << (13 << 1))) | (GPIO_PMD_OUTPUT << (13 << 1));
-    nRTSPin = REVEIVE_MODE;
+    /* Set PB2 for RTS  */
+    PB->PMD = (PB->PMD & ~GP_PMD_PMD2_Msk) | (GPIO_PMD_OUTPUT << GP_PMD_PMD2_Pos);
+    nRTSPin = RECEIVE_MODE;
 
     /* Set PB multi-function pins for UART0 RXD and TXD  */
     SYS->PB_L_MFP &= ~(SYS_PB_L_MFP_PB0_MFP_Msk | SYS_PB_L_MFP_PB1_MFP_Msk);
@@ -107,8 +107,9 @@ _ISP:
             PutString();
 
             while ((UART0->FSR & UART_FSR_TX_EMPTY_F_Msk) == 0);
+            while ((UART0->FSR & UART_FSR_TE_F_Msk) == 0);
 
-            nRTSPin = REVEIVE_MODE;
+            nRTSPin = RECEIVE_MODE;
             NVIC_EnableIRQ(UART0_IRQn);
         }
     }
