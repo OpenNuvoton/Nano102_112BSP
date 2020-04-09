@@ -29,7 +29,7 @@ void SYS_Init(void)
     /* Enable HIRC */
     CLK->PWRCTL |= CLK_PWRCTL_HIRC_EN_Msk | CLK_PWRCTL_HXT_EN_Msk;
     /* Waiting for HIRC clock ready */
-    CLK_WaitClockReady(CLK_PWRCTL_HIRC_EN_Msk);
+    CLK_WaitClockReady(CLK_CLKSTATUS_HIRC_STB_Msk);
     CLK_EnablePLL(CLK_PLLCTL_PLL_SRC_HIRC, 32000000);
     CLK_WaitClockReady(CLK_CLKSTATUS_PLL_STB_Msk);
     CLK_SetHCLK(CLK_CLKSEL0_HCLK_S_PLL, CLK_HCLK_CLK_DIVIDER(1));
