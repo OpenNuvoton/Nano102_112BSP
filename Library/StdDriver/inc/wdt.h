@@ -6,6 +6,7 @@
  * @brief    Nano102/112 series WDT driver header file
  *
  * @note
+ * SPDX-License-Identifier: Apache-2.0
  * Copyright (C) 2013~2014 Nuvoton Technology Corp. All rights reserved.
  *****************************************************************************/
 #ifndef __WDT_H__

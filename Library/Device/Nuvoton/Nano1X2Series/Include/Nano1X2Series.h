@@ -4,6 +4,7 @@
  *           This file contains all the peripheral register's definitions,
  *           bits definitions and memory mapping for NuMicro Nano102/112 MCU.
  *
+ * SPDX-License-Identifier: Apache-2.0
  * @copyright (C) 2018 Nuvoton Technology Corp. All rights reserved.
  *****************************************************************************/
 /**

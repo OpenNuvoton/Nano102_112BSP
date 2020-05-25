@@ -6,6 +6,7 @@
  * @brief    Nano 102/112 series retarget source file
  *
  * @note
+ * SPDX-License-Identifier: Apache-2.0
  * Copyright (C) 2013~2014 Nuvoton Technology Corp. All rights reserved.
 *****************************************************************************/
 #include <stdio.h>
