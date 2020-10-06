@@ -13,7 +13,7 @@
 
 
 
-/** @addtogroup NANO1X2_Device_Driver NANO1X2 Device Driver
+/** @addtogroup NANO1X2_Device_Driver NANO102/112 Device Driver
   @{
 */
 
