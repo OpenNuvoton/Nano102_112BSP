@@ -182,7 +182,7 @@ extern "C"
  *
  *    @return    None
  */
-#define UART_WAIT_TX_EMPTY(uart)    while(!(((uart->FSR) & UART_FSR_TX_EMPTY_F_Msk) >> UART_FSR_TX_EMPTY_F_Pos))
+#define UART_WAIT_TX_EMPTY(uart)    while(!((uart->FSR) & (UART_FSR_TX_EMPTY_F_Msk | UART_FSR_TE_F_Msk)) )
 
 /**
  *    @brief    Check RDA_IF is set or not
