@@ -58,6 +58,7 @@ static volatile uint32_t g_u32hiHour,g_u32loHour,g_u32hiMin,g_u32loMin,g_u32hiSe
 void RTC_32KCalibration(int32_t i32FrequencyX10000)
 {
     uint64_t u64Compensate;
+    int32_t i32TimeoutCnt = SystemCoreClock; // 1 second timeout
 
     //u64Compensate = (uint64_t)(0x64000000000);
     u64Compensate = (uint64_t)(0x2710000000000);
@@ -69,7 +70,11 @@ void RTC_32KCalibration(int32_t i32FrequencyX10000)
     }
 
     RTC->AER = RTC_WRITE_KEY;
-    while(!(RTC->AER & RTC_AER_ENF_Msk)) RTC->AER = RTC_WRITE_KEY;
+    while(!(RTC->AER & RTC_AER_ENF_Msk)) {
+		RTC->AER = RTC_WRITE_KEY;
+        if(i32TimeoutCnt-- <= 0)
+            break;
+    }
 
     RTC->FCR = (uint32_t)u64Compensate;
 
@@ -101,6 +106,9 @@ void RTC_32KCalibration(int32_t i32FrequencyX10000)
 void RTC_Open (S_RTC_TIME_DATA_T *sPt)
 {
     uint32_t u32Reg;
+    int32_t i32TimeoutCnt = SystemCoreClock; // total 1 second timeout
+
+    volatile int32_t i32delay=1000;
 
     RTC->INIR = RTC_INIT_KEY;
 
@@ -108,7 +116,10 @@ void RTC_Open (S_RTC_TIME_DATA_T *sPt)
     {
         RTC->INIR = RTC_INIT_KEY;
 
-        while(RTC->INIR != 0x1);
+        while(RTC->INIR != 0x1) {
+            if(i32TimeoutCnt-- <= 0)
+                break;
+        }
     }
 
     if(sPt == NULL)
@@ -120,7 +131,11 @@ void RTC_Open (S_RTC_TIME_DATA_T *sPt)
     if (sPt->u32TimeScale == RTC_CLOCK_12)
     {
         RTC->AER = RTC_WRITE_KEY;
-        while(!(RTC->AER & RTC_AER_ENF_Msk)) RTC->AER = RTC_WRITE_KEY;
+        while(!(RTC->AER & RTC_AER_ENF_Msk)) {
+            RTC->AER = RTC_WRITE_KEY;
+            if(i32TimeoutCnt-- <= 0)
+                break;
+        }
         RTC->TSSR &= ~RTC_TSSR_24H_12H_Msk;
 
         /*-------------------------------------------------------------------------------------------------*/
@@ -132,7 +147,11 @@ void RTC_Open (S_RTC_TIME_DATA_T *sPt)
     else
     {
         RTC->AER = RTC_WRITE_KEY;
-        while(!(RTC->AER & RTC_AER_ENF_Msk)) RTC->AER = RTC_WRITE_KEY;
+        while(!(RTC->AER & RTC_AER_ENF_Msk)) {
+            RTC->AER = RTC_WRITE_KEY;
+            if(i32TimeoutCnt-- <= 0)
+                break;
+        }
         RTC->TSSR |= RTC_TSSR_24H_12H_Msk;
     }
 
@@ -148,7 +167,11 @@ void RTC_Open (S_RTC_TIME_DATA_T *sPt)
     g_u32Reg = u32Reg;
 
     RTC->AER = RTC_WRITE_KEY;
-    while(!(RTC->AER & RTC_AER_ENF_Msk)) RTC->AER = RTC_WRITE_KEY;
+    while(!(RTC->AER & RTC_AER_ENF_Msk)) {
+		RTC->AER = RTC_WRITE_KEY;
+		if(i32TimeoutCnt-- <= 0)
+            break;
+    }
 
     RTC->CLR = (uint32_t)g_u32Reg;
 
@@ -164,11 +187,18 @@ void RTC_Open (S_RTC_TIME_DATA_T *sPt)
     g_u32Reg = u32Reg;
 
     RTC->AER = RTC_WRITE_KEY;
-    while(!(RTC->AER & RTC_AER_ENF_Msk)) RTC->AER = RTC_WRITE_KEY;
+    while(!(RTC->AER & RTC_AER_ENF_Msk)) {
+		RTC->AER = RTC_WRITE_KEY;
+		if(i32TimeoutCnt-- <= 0)
+            break;
+    }
 
     RTC->TLR = (uint32_t)g_u32Reg;
 
     RTC->DWR = sPt->u32DayOfWeek;
+
+    /* Waiting for RTC settings stable */
+    while(i32delay--);
 
 }
 
@@ -286,12 +316,17 @@ void RTC_GetDateAndTime(S_RTC_TIME_DATA_T *sPt)
 void RTC_GetAlarmDateAndTime(S_RTC_TIME_DATA_T *sPt)
 {
     uint32_t u32Tmp;
+    int32_t i32TimeoutCnt = SystemCoreClock; // total 1 second timeout
 
     sPt->u32TimeScale = RTC->TSSR & RTC_TSSR_24H_12H_Msk;  /* 12/24-hour */
     sPt->u32DayOfWeek = RTC->DWR & RTC_DWR_DWR_Msk;        /* Day of week */
 
     RTC->AER = RTC_WRITE_KEY;
-    while(!(RTC->AER & RTC_AER_ENF_Msk)) RTC->AER = RTC_WRITE_KEY;
+    while(!(RTC->AER & RTC_AER_ENF_Msk)) {
+		RTC->AER = RTC_WRITE_KEY;
+        if(i32TimeoutCnt-- <= 0)
+            break;
+    }
 
     g_u32hiYear  = (RTC->CAR & RTC_CAR_10YEAR_Msk) >> RTC_CAR_10YEAR_Pos;
     g_u32loYear  = (RTC->CAR & RTC_CAR_1YEAR_Msk)  >> RTC_CAR_1YEAR_Pos;
@@ -301,7 +336,11 @@ void RTC_GetAlarmDateAndTime(S_RTC_TIME_DATA_T *sPt)
     g_u32loDay   = (RTC->CAR & RTC_CAR_1DAY_Msk);
 
     RTC->AER = RTC_WRITE_KEY;
-    while(!(RTC->AER & RTC_AER_ENF_Msk)) RTC->AER = RTC_WRITE_KEY;
+    while(!(RTC->AER & RTC_AER_ENF_Msk)) {
+		RTC->AER = RTC_WRITE_KEY;
+        if(i32TimeoutCnt-- <= 0)
+            break;
+    }
 
     g_u32hiHour =  (RTC->TAR & RTC_TAR_10HR_Msk)  >> RTC_TAR_10HR_Pos;
     g_u32loHour =  (RTC->TAR & RTC_TAR_1HR_Msk)   >> RTC_TAR_1HR_Pos;
@@ -389,9 +428,14 @@ void RTC_GetAlarmDateAndTime(S_RTC_TIME_DATA_T *sPt)
 void RTC_SetDateAndTime(S_RTC_TIME_DATA_T *sPt)
 {
     uint32_t u32Reg;
+    int32_t i32TimeoutCnt = SystemCoreClock; // total 1 second timeout
 
     RTC->AER = RTC_WRITE_KEY;
-    while(!(RTC->AER & RTC_AER_ENF_Msk)) RTC->AER = RTC_WRITE_KEY;
+    while(!(RTC->AER & RTC_AER_ENF_Msk)) {
+		RTC->AER = RTC_WRITE_KEY;
+        if(i32TimeoutCnt-- <= 0)
+            break;
+    }
 
     if (sPt->u32TimeScale == RTC_CLOCK_12)
     {
@@ -419,7 +463,11 @@ void RTC_SetDateAndTime(S_RTC_TIME_DATA_T *sPt)
     g_u32Reg = u32Reg;
 
     RTC->AER = RTC_WRITE_KEY;
-    while(!(RTC->AER & RTC_AER_ENF_Msk)) RTC->AER = RTC_WRITE_KEY;
+    while(!(RTC->AER & RTC_AER_ENF_Msk)) {
+		RTC->AER = RTC_WRITE_KEY;
+        if(i32TimeoutCnt-- <= 0)
+            break;
+    }
 
     RTC->CLR = (uint32_t)g_u32Reg;
 
@@ -432,7 +480,11 @@ void RTC_SetDateAndTime(S_RTC_TIME_DATA_T *sPt)
     g_u32Reg = u32Reg;
 
     RTC->AER = RTC_WRITE_KEY;
-    while(!(RTC->AER & RTC_AER_ENF_Msk)) RTC->AER = RTC_WRITE_KEY;
+    while(!(RTC->AER & RTC_AER_ENF_Msk)) {
+		RTC->AER = RTC_WRITE_KEY;
+        if(i32TimeoutCnt-- <= 0)
+            break;
+    }
 
     RTC->TLR = (uint32_t)g_u32Reg;
 
@@ -461,9 +513,14 @@ void RTC_SetDateAndTime(S_RTC_TIME_DATA_T *sPt)
 void RTC_SetAlarmDateAndTime(S_RTC_TIME_DATA_T *sPt)
 {
     uint32_t u32Reg;
+    int32_t i32TimeoutCnt = SystemCoreClock; // total 1 second timeout
 
     RTC->AER = RTC_WRITE_KEY;
-    while(!(RTC->AER & RTC_AER_ENF_Msk)) RTC->AER = RTC_WRITE_KEY;
+    while(!(RTC->AER & RTC_AER_ENF_Msk)) {
+		RTC->AER = RTC_WRITE_KEY;
+        if(i32TimeoutCnt-- <= 0)
+            break;
+    }
 
     if (sPt->u32TimeScale == RTC_CLOCK_12)
     {
@@ -492,7 +549,11 @@ void RTC_SetAlarmDateAndTime(S_RTC_TIME_DATA_T *sPt)
     g_u32Reg   = u32Reg;
 
     RTC->AER = RTC_WRITE_KEY;
-    while(!(RTC->AER & RTC_AER_ENF_Msk)) RTC->AER = RTC_WRITE_KEY;
+    while(!(RTC->AER & RTC_AER_ENF_Msk)) {
+		RTC->AER = RTC_WRITE_KEY;
+        if(i32TimeoutCnt-- <= 0)
+            break;
+    }
 
     RTC->CAR = (uint32_t)g_u32Reg;
 
@@ -505,7 +566,11 @@ void RTC_SetAlarmDateAndTime(S_RTC_TIME_DATA_T *sPt)
     g_u32Reg = u32Reg;
 
     RTC->AER = RTC_WRITE_KEY;
-    while(!(RTC->AER & RTC_AER_ENF_Msk)) RTC->AER = RTC_WRITE_KEY;
+    while(!(RTC->AER & RTC_AER_ENF_Msk)) {
+		RTC->AER = RTC_WRITE_KEY;
+        if(i32TimeoutCnt-- <= 0)
+            break;
+    }
 
     RTC->TAR = (uint32_t)g_u32Reg;
 
@@ -528,9 +593,14 @@ void RTC_SetAlarmDateAndTime(S_RTC_TIME_DATA_T *sPt)
 void RTC_SetDate(uint32_t u32Year, uint32_t u32Month, uint32_t u32Day, uint32_t u32DayOfWeek)
 {
     __IO uint32_t u32Reg;
+    int32_t i32TimeoutCnt = SystemCoreClock; // total 1 second timeout
 
     RTC->AER = RTC_WRITE_KEY;
-    while(!(RTC->AER & RTC_AER_ENF_Msk)) RTC->AER = RTC_WRITE_KEY;
+    while(!(RTC->AER & RTC_AER_ENF_Msk)) {
+		RTC->AER = RTC_WRITE_KEY;
+        if(i32TimeoutCnt-- <= 0)
+            break;
+    }
 
     RTC->DWR = u32DayOfWeek & RTC_DWR_DWR_Msk;
 
@@ -543,7 +613,11 @@ void RTC_SetDate(uint32_t u32Year, uint32_t u32Month, uint32_t u32Day, uint32_t 
     g_u32Reg   = u32Reg;
 
     RTC->AER = RTC_WRITE_KEY;
-    while(!(RTC->AER & RTC_AER_ENF_Msk)) RTC->AER = RTC_WRITE_KEY;
+    while(!(RTC->AER & RTC_AER_ENF_Msk)) {
+		RTC->AER = RTC_WRITE_KEY;
+        if(i32TimeoutCnt-- <= 0)
+            break;
+    }
 
     RTC->CLR = (uint32_t)g_u32Reg;
 
@@ -564,9 +638,14 @@ void RTC_SetDate(uint32_t u32Year, uint32_t u32Month, uint32_t u32Day, uint32_t 
 void RTC_SetTime(uint32_t u32Hour, uint32_t u32Minute, uint32_t u32Second, uint32_t u32TimeMode, uint32_t u32AmPm)
 {
     __IO uint32_t u32Reg;
+    int32_t i32TimeoutCnt = SystemCoreClock; // total 1 second timeout
 
     RTC->AER = RTC_WRITE_KEY;
-    while(!(RTC->AER & RTC_AER_ENF_Msk)) RTC->AER = RTC_WRITE_KEY;
+    while(!(RTC->AER & RTC_AER_ENF_Msk)) {
+		RTC->AER = RTC_WRITE_KEY;
+        if(i32TimeoutCnt-- <= 0)
+            break;
+    }
 
     if (u32TimeMode == RTC_CLOCK_12)
     {
@@ -590,7 +669,11 @@ void RTC_SetTime(uint32_t u32Hour, uint32_t u32Minute, uint32_t u32Second, uint3
     g_u32Reg = u32Reg;
 
     RTC->AER = RTC_WRITE_KEY;
-    while(!(RTC->AER & RTC_AER_ENF_Msk)) RTC->AER = RTC_WRITE_KEY;
+    while(!(RTC->AER & RTC_AER_ENF_Msk)) {
+		RTC->AER = RTC_WRITE_KEY;
+        if(i32TimeoutCnt-- <= 0)
+            break;
+    }
 
     RTC->TLR = (uint32_t)g_u32Reg;
 
@@ -609,9 +692,14 @@ void RTC_SetTime(uint32_t u32Hour, uint32_t u32Minute, uint32_t u32Second, uint3
 void RTC_SetAlarmDate(uint32_t u32Year, uint32_t u32Month, uint32_t u32Day)
 {
     __IO uint32_t u32Reg;
+    int32_t i32TimeoutCnt = SystemCoreClock; // total 1 second timeout
 
     RTC->AER = RTC_WRITE_KEY;
-    while(!(RTC->AER & RTC_AER_ENF_Msk)) RTC->AER = RTC_WRITE_KEY;
+    while(!(RTC->AER & RTC_AER_ENF_Msk)) {
+		RTC->AER = RTC_WRITE_KEY;
+        if(i32TimeoutCnt-- <= 0)
+            break;
+    }
 
     u32Reg       = ((u32Year - RTC_YEAR2000) / 10) << 20;
     u32Reg      |= (((u32Year - RTC_YEAR2000) % 10) << 16);
@@ -622,7 +710,11 @@ void RTC_SetAlarmDate(uint32_t u32Year, uint32_t u32Month, uint32_t u32Day)
     g_u32Reg   = u32Reg;
 
     RTC->AER = RTC_WRITE_KEY;
-    while(!(RTC->AER & RTC_AER_ENF_Msk)) RTC->AER = RTC_WRITE_KEY;
+    while(!(RTC->AER & RTC_AER_ENF_Msk)) {
+		RTC->AER = RTC_WRITE_KEY;
+        if(i32TimeoutCnt-- <= 0)
+            break;
+    }
 
     RTC->CAR = (uint32_t)g_u32Reg;
 
@@ -643,9 +735,14 @@ void RTC_SetAlarmDate(uint32_t u32Year, uint32_t u32Month, uint32_t u32Day)
 void RTC_SetAlarmTime(uint32_t u32Hour, uint32_t u32Minute, uint32_t u32Second, uint32_t u32TimeMode, uint32_t u32AmPm)
 {
     __IO uint32_t u32Reg;
+    int32_t i32TimeoutCnt = SystemCoreClock; // total 1 second timeout
 
     RTC->AER = RTC_WRITE_KEY;
-    while(!(RTC->AER & RTC_AER_ENF_Msk));
+    while(!(RTC->AER & RTC_AER_ENF_Msk)) {
+        RTC->AER = RTC_WRITE_KEY;
+        if(i32TimeoutCnt-- <= 0)
+            break;
+    }
 
     if (u32TimeMode == RTC_CLOCK_12)
     {
@@ -669,7 +766,11 @@ void RTC_SetAlarmTime(uint32_t u32Hour, uint32_t u32Minute, uint32_t u32Second, 
     g_u32Reg = u32Reg;
 
     RTC->AER = RTC_WRITE_KEY;
-    while(!(RTC->AER & RTC_AER_ENF_Msk)) RTC->AER = RTC_WRITE_KEY;
+    while(!(RTC->AER & RTC_AER_ENF_Msk)) {
+        RTC->AER = RTC_WRITE_KEY;
+        if(i32TimeoutCnt-- <= 0)
+            break;
+    }
 
     RTC->TAR = (uint32_t)g_u32Reg;
 
@@ -688,8 +789,14 @@ void RTC_SetAlarmTime(uint32_t u32Hour, uint32_t u32Minute, uint32_t u32Second, 
  */
 void RTC_EnableTamperDetection(uint32_t u32PinCondition)
 {
+    int32_t i32TimeoutCnt = SystemCoreClock; // total 1 second timeout
+
     RTC->AER = RTC_WRITE_KEY;
-    while(!(RTC->AER & RTC_AER_ENF_Msk)) RTC->AER = RTC_WRITE_KEY;
+    while(!(RTC->AER & RTC_AER_ENF_Msk)) {
+        RTC->AER = RTC_WRITE_KEY;
+        if(i32TimeoutCnt-- <= 0)
+            break;
+    }
 
     /* detection edge select */
     if(u32PinCondition)
@@ -711,8 +818,14 @@ void RTC_EnableTamperDetection(uint32_t u32PinCondition)
  */
 void RTC_DisableTamperDetection(void)
 {
+    int32_t i32TimeoutCnt = SystemCoreClock; // 1 second timeout
+
     RTC->AER = RTC_WRITE_KEY;
-    while(!(RTC->AER & RTC_AER_ENF_Msk)) RTC->AER = RTC_WRITE_KEY;
+    while(!(RTC->AER & RTC_AER_ENF_Msk)) {
+        RTC->AER = RTC_WRITE_KEY;
+        if(i32TimeoutCnt-- <= 0)
+            break;
+    }
 
     RTC->SPRCTL &= ~RTC_SPRCTL_SNOOPEN_Msk;
 }
@@ -751,8 +864,14 @@ uint32_t RTC_GetDayOfWeek(void)
  */
 void RTC_SetTickPeriod(uint32_t u32TickSelection)
 {
+    int32_t i32TimeoutCnt = SystemCoreClock; // 1 second timeout
+
     RTC->AER = RTC_WRITE_KEY;
-    while(!(RTC->AER & RTC_AER_ENF_Msk)) RTC->AER = RTC_WRITE_KEY;
+    while(!(RTC->AER & RTC_AER_ENF_Msk)) {
+        RTC->AER = RTC_WRITE_KEY;
+        if(i32TimeoutCnt-- <= 0)
+            break;
+    }
 
     RTC->TTR = RTC->TTR & ~RTC_TTR_TTR_Msk | u32TickSelection;
 }
@@ -770,8 +889,14 @@ void RTC_SetTickPeriod(uint32_t u32TickSelection)
  */
 void RTC_EnableInt(uint32_t u32IntFlagMask)
 {
+    int32_t i32TimeoutCnt = SystemCoreClock; // 1 second timeout
+
     RTC->AER = RTC_WRITE_KEY;
-    while(!(RTC->AER & RTC_AER_ENF_Msk)) RTC->AER = RTC_WRITE_KEY;
+    while(!(RTC->AER & RTC_AER_ENF_Msk)) {
+        RTC->AER = RTC_WRITE_KEY;
+        if(i32TimeoutCnt-- <= 0)
+            break;
+    }
 
     RTC->RIER |= u32IntFlagMask;
 }
@@ -789,8 +914,14 @@ void RTC_EnableInt(uint32_t u32IntFlagMask)
  */
 void RTC_DisableInt(uint32_t u32IntFlagMask)
 {
+    int32_t i32TimeoutCnt = SystemCoreClock; // 1 second timeout
+
     RTC->AER = RTC_WRITE_KEY;
-    while(!(RTC->AER & RTC_AER_ENF_Msk)) RTC->AER = RTC_WRITE_KEY;
+    while(!(RTC->AER & RTC_AER_ENF_Msk)) {
+        RTC->AER = RTC_WRITE_KEY;
+        if(i32TimeoutCnt-- <= 0)
+            break;
+    }
 
     if(u32IntFlagMask & RTC_RIER_TIER_Msk)
     {
