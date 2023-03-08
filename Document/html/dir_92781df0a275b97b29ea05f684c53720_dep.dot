@@ -1,0 +1,19 @@
+digraph "Device/Nuvoton/Nano1X2Series"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  compound=true
+  subgraph clusterdir_dfa946205a9a0ffc7bda9b97689fa4ff {
+    graph [ bgcolor="#f8ebec", pencolor="grey50", style="filled,dashed,", label="Nuvoton", fontname="Helvetica", fontsize="10", URL="dir_dfa946205a9a0ffc7bda9b97689fa4ff.html"]
+  subgraph clusterdir_92781df0a275b97b29ea05f684c53720 {
+    graph [ bgcolor="#f8ebec", pencolor="grey25", style="filled,bold,", label="", fontname="Helvetica", fontsize="10", URL="dir_92781df0a275b97b29ea05f684c53720.html"]
+    dir_92781df0a275b97b29ea05f684c53720 [shape=plaintext, label="Nano1X2Series"];
+  dir_fe641809c4fcb76112d224c9eb698e29 [shape=box, label="Include", style="filled,", fillcolor="#dc9aa1", color="grey25", URL="dir_fe641809c4fcb76112d224c9eb698e29.html"];
+  dir_a9675d3fe69a6956120b6eac8ec66ca6 [shape=box, label="Source", style="filled,", fillcolor="#dc9aa1", color="grey25", URL="dir_a9675d3fe69a6956120b6eac8ec66ca6.html"];
+  }
+  }
+  dir_0d398eaf8b2db165a9197a6619ec9f0e [shape=box, label="StdDriver", style="", fillcolor="#f8ebec", color="red", URL="dir_0d398eaf8b2db165a9197a6619ec9f0e.html"];
+  dir_fe641809c4fcb76112d224c9eb698e29->dir_0d398eaf8b2db165a9197a6619ec9f0e [headlabel="18", labeldistance=1.5 headhref="dir_000003_000013.html"];
+  dir_a9675d3fe69a6956120b6eac8ec66ca6->dir_fe641809c4fcb76112d224c9eb698e29 [headlabel="1", labeldistance=1.5 headhref="dir_000010_000003.html"];
+}

@@ -1,0 +1,55 @@
+digraph "StdDriver/inc/adc.h"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="StdDriver/inc/adc.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Nano102/112 series ADC driver header file."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="Device/Nuvoton/Nano1X2Series\l/Include/Nano1X2Series.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$da/d91/_nano1_x2_series_8h.html",tooltip="Nano102/112 peripheral access layer header file. This file contains all the peripheral register's def..."];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="Device/Nuvoton/Nano1X2Series\l/Source/system_Nano1X2Series.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d5/d7e/system___nano1_x2_series_8c.html",tooltip=" "];
+  Node2 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="LCDLib/Source/LCDLIB.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d9/d6b/_l_c_d_l_i_b_8c.html",tooltip=" "];
+  Node2 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="SmartcardLib/Include\l/sclib.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d8/de4/sclib_8h.html",tooltip="Smartcard library header file."];
+  Node2 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="StdDriver/src/acmp.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d3/df1/acmp_8c.html",tooltip="Nano 102/112 series Analog Comparator(ACMP) driver source file."];
+  Node2 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="StdDriver/src/adc.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$de/d01/adc_8c.html",tooltip="Nano 102/112 series ADC driver source file."];
+  Node2 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="StdDriver/src/clk.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$de/da0/clk_8c.html",tooltip="Nano 102/112 series CLK driver source file."];
+  Node2 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="StdDriver/src/crc.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d8/d13/crc_8c.html",tooltip="Nano 102/112 series CRC driver source file."];
+  Node2 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="StdDriver/src/fmc.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d0/dbc/fmc_8c.html",tooltip="Nano 102/112 series FMC driver source file."];
+  Node2 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="StdDriver/src/gpio.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d8/da0/gpio_8c.html",tooltip="Nano 102/112 series GPIO driver source file."];
+  Node2 -> Node12 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 [label="StdDriver/src/i2c.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d9/dcb/i2c_8c.html",tooltip="Nano 102/112 series I2C driver source file."];
+  Node2 -> Node13 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 [label="StdDriver/src/lcd.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$da/def/lcd_8c.html",tooltip="Nano 102/112 series LCD driver source file."];
+  Node2 -> Node14 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node14 [label="StdDriver/src/pdma.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d2/d14/pdma_8c.html",tooltip="Nano1x2 series PDMA driver source file."];
+  Node2 -> Node15 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node15 [label="StdDriver/src/pwm.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$de/d5c/pwm_8c.html",tooltip="Nano 102/112 series PWM driver source file."];
+  Node2 -> Node16 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node16 [label="StdDriver/src/retarget.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d3/d3d/retarget_8c.html",tooltip="Nano 102/112 series retarget source file."];
+  Node2 -> Node17 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node17 [label="StdDriver/src/rtc.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d4/dcc/rtc_8c.html",tooltip="Nano 102/112 series RTC driver source file."];
+  Node2 -> Node18 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node18 [label="StdDriver/src/sc.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$df/d60/sc_8c.html",tooltip="Nano 102/112 series Smartcard(SC) driver source file."];
+  Node2 -> Node19 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node19 [label="StdDriver/src/scuart.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$df/d4a/scuart_8c.html",tooltip="Nano 102/112 series Smartcard UART mode (SCUART) driver source file."];
+  Node2 -> Node20 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node20 [label="StdDriver/src/spi.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$da/d00/spi_8c.html",tooltip="Nano 102/112 series SPI driver source file."];
+  Node2 -> Node21 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node21 [label="StdDriver/src/sys.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d8/d91/sys_8c.html",tooltip="Nano 102/112 series SYS driver source file."];
+  Node2 -> Node22 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node22 [label="StdDriver/src/timer.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$df/d41/timer_8c.html",tooltip="Nano 102/112 series TIMER driver source file."];
+  Node2 -> Node23 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node23 [label="StdDriver/src/uart.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d1/d87/uart_8c.html",tooltip="Nano 102/112 series Smartcard UART mode (UART) driver source file."];
+  Node2 -> Node24 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node24 [label="StdDriver/src/wdt.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$db/d1a/wdt_8c.html",tooltip="Nano 102/112 series WDT driver source file."];
+  Node2 -> Node25 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node25 [label="StdDriver/src/wwdt.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d9/d90/wwdt_8c.html",tooltip="Nano 102/112 series WWDT driver source file."];
+}

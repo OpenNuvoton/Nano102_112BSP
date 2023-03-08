@@ -1,0 +1,11 @@
+digraph "Device/Nuvoton/Nano1X2Series/Source/GCC"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  compound=true
+  subgraph clusterdir_a9675d3fe69a6956120b6eac8ec66ca6 {
+    graph [ bgcolor="#f8ebec", pencolor="grey50", style="filled,dashed,", label="Source", fontname="Helvetica", fontsize="10", URL="dir_a9675d3fe69a6956120b6eac8ec66ca6.html"]
+  dir_d597a4f12eb693ab15e9b0230738caf6 [shape=box, label="GCC", style="filled,bold,", fillcolor="#f8ebec", color="grey25", URL="dir_d597a4f12eb693ab15e9b0230738caf6.html"];
+  }
+}
