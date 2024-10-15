@@ -81,10 +81,9 @@ void SYS_Init(void)
 
 
 #ifdef __ARMCC_VERSION
-__asm __set_SP(uint32_t _sp)
+void __set_SP(uint32_t _sp)
 {
-    MSR MSP, r0
-    BX lr
+    __set_MSP(_sp);
 }
 #endif
 

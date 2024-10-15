@@ -1,14 +1,14 @@
 ;/******************************************************************************
 ; * @file     startup_Nano1X2Series.s
-; * @version  V1.00
+; * @version  V2.00
 ; * $Revision: 6 $
-; * $Date: 15/06/23 2:40p $ 
+; * $Date: 15/06/23 2:40p $
 ; * @brief    CMSIS ARM Cortex-M0 Core Device Startup File
 ; *
 ; * @note
 ; * SPDX-License-Identifier: Apache-2.0
-; * Copyright (C) 2013 Nuvoton Technology Corp. All rights reserved.
-;*****************************************************************************/  
+; * Copyright (C) 2024 Nuvoton Technology Corp. All rights reserved.
+;*****************************************************************************/
 
 ; <h> Stack Configuration
 ;   <o> Stack Size (in Bytes) <0x0-0xFFFFFFFF:8>
@@ -64,32 +64,32 @@ __Vectors       DCD     __initial_sp              ; Top of Stack
                 DCD     SysTick_Handler           ; SysTick Handler
 
                 ; External Interrupts
-                DCD     BOD_IRQHandler            ; Brownout low voltage detected interrupt  
-                DCD     WDT_IRQHandler            ; Watch Dog Timer interrupt  
+                DCD     BOD_IRQHandler            ; Brownout low voltage detected interrupt
+                DCD     WDT_IRQHandler            ; Watch Dog Timer interrupt
                 DCD     EINT0_IRQHandler          ; External signal interrupt from PB.14 pin
                 DCD     EINT1_IRQHandler          ; External signal interrupt from PB.15 pin
-                DCD     GPABC_IRQHandler          ; External interrupt from PA[15:0]/PB[15:0]/PC[15:0]  
+                DCD     GPABC_IRQHandler          ; External interrupt from PA[15:0]/PB[15:0]/PC[15:0]
                 DCD     GPDEF_IRQHandler          ; External interrupt from PD[15:0]/PE[15:0]/PF[7:0]
-                DCD     PWM0_IRQHandler           ; PWM 0 interrupt 
+                DCD     PWM0_IRQHandler           ; PWM 0 interrupt
                 DCD     0                         ; Reserved
                 DCD     TMR0_IRQHandler           ; Timer 0 interrupt
-                DCD     TMR1_IRQHandler           ; Timer 1 interrupt  
-                DCD     TMR2_IRQHandler           ; Timer 2 interrupt 
-                DCD     TMR3_IRQHandler           ; Timer 3 interrupt 
+                DCD     TMR1_IRQHandler           ; Timer 1 interrupt
+                DCD     TMR2_IRQHandler           ; Timer 2 interrupt
+                DCD     TMR3_IRQHandler           ; Timer 3 interrupt
                 DCD     UART0_IRQHandler          ; UART0 interrupt
                 DCD     UART1_IRQHandler          ; UART1 interrupt
-                DCD     SPI0_IRQHandler           ; SPI0 interrupt 
-                DCD     SPI1_IRQHandler           ; SPI1 interrupt 
-                DCD     Default_Handler           ; Reserved 
-                DCD     HIRC_IRQHandler           ; HIRC interrupt 
-                DCD     I2C0_IRQHandler           ; I2C0 interrupt 
-                DCD     I2C1_IRQHandler           ; I2C1 interrupt 
+                DCD     SPI0_IRQHandler           ; SPI0 interrupt
+                DCD     SPI1_IRQHandler           ; SPI1 interrupt
+                DCD     Default_Handler           ; Reserved
+                DCD     HIRC_IRQHandler           ; HIRC interrupt
+                DCD     I2C0_IRQHandler           ; I2C0 interrupt
+                DCD     I2C1_IRQHandler           ; I2C1 interrupt
                 DCD     Default_Handler           ; Reserved
                 DCD     SC0_IRQHandler            ; SC0 interrupt
                 DCD     SC1_IRQHandler            ; SC1 interrupt
-                DCD     Default_Handler           ; Reserved 
-                DCD     Default_Handler           ; Reserved 
-                DCD     LCD_IRQHandler            ; LCD interrupt 
+                DCD     Default_Handler           ; Reserved
+                DCD     Default_Handler           ; Reserved
+                DCD     LCD_IRQHandler            ; LCD interrupt
                 DCD     PDMA_IRQHandler           ; PDMA interrupt
                 DCD     Default_Handler           ; Reserved
                 DCD     PDWU_IRQHandler           ; Power Down Wake up interrupt
@@ -127,7 +127,7 @@ Reset_Handler   PROC
                 ENDP
 
 
-; Dummy Exception Handlers (infinite loops which can be modified)                
+; Dummy Exception Handlers (infinite loops which can be modified)
 
 NMI_Handler     PROC
                 EXPORT  NMI_Handler               [WEAK]
@@ -135,9 +135,14 @@ NMI_Handler     PROC
                 ENDP
 HardFault_Handler\
                 PROC
+                IMPORT  ProcessHardFault
                 EXPORT  HardFault_Handler         [WEAK]
-
-                B       .
+                MOV     R0, LR
+                MRS     R1, MSP
+                MRS     R2, PSP
+                LDR     R3, =ProcessHardFault
+                BLX     R3
+                BX      R0
                 ENDP
 SVC_Handler     PROC
                 EXPORT  SVC_Handler               [WEAK]
@@ -180,7 +185,7 @@ Default_Handler PROC
                 EXPORT  ADC_IRQHandler            [WEAK]
                 EXPORT  ACMP_IRQHandler           [WEAK]
                 EXPORT  RTC_IRQHandler            [WEAK]
-                
+
 BOD_IRQHandler
 WDT_IRQHandler
 EINT0_IRQHandler
@@ -199,7 +204,7 @@ SPI1_IRQHandler
 HIRC_IRQHandler
 I2C0_IRQHandler
 I2C1_IRQHandler
-SC0_IRQHandler    
+SC0_IRQHandler
 SC1_IRQHandler
 LCD_IRQHandler
 PDMA_IRQHandler
@@ -219,13 +224,13 @@ RTC_IRQHandler
 ; User Initial Stack & Heap
 
                 IF      :DEF:__MICROLIB
-                
+
                 EXPORT  __initial_sp
                 EXPORT  __heap_base
                 EXPORT  __heap_limit
-                
+
                 ELSE
-                
+
                 IMPORT  __use_two_region_memory
                 EXPORT  __user_initial_stackheap
 __user_initial_stackheap
@@ -240,10 +245,31 @@ __user_initial_stackheap
 
                 ENDIF
 
+;int32_t SH_DoCommand(int32_t n32In_R0, int32_t n32In_R1, int32_t *pn32Out_R0)
+SH_DoCommand    PROC
 
+                EXPORT      SH_DoCommand
+                IMPORT      SH_Return
+
+                BKPT   0xAB                ; Wait ICE or HardFault
+                LDR    R3, =SH_Return
+                PUSH   {R3 ,lr}
+                BLX    R3                  ; Call SH_Return. The return value is in R0
+                POP    {R3 ,PC}            ; Return value = R0
+
+                ENDP
+
+__PC            PROC
+                EXPORT      __PC
+
+                MOV     r0, lr
+                BLX     lr
+                ALIGN
+
+                ENDP
 
 
 
                 END
 
-;/*** (C) COPYRIGHT 2013 Nuvoton Technology Corp. ***/
+;/*** (C) COPYRIGHT 2024 Nuvoton Technology Corp. ***/

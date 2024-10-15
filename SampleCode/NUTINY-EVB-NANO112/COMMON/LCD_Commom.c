@@ -79,7 +79,7 @@ void ControlSegment(uint32_t onoff, int com, int seg)
 
 void textticker(char *string, uint32_t delayus)
 {
-    char showstring[7], tmpstring[7];
+    char showstring[8], tmpstring[8];
     int showidx, textidx, storeshowidx, storetextidx;
     int textlen;
     uint32_t i;
